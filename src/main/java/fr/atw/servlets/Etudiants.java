@@ -18,12 +18,16 @@ public class Etudiants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private List<Etudiant> listeEtudiants;
 	
+	private int nbEquipes;
+	
 	public void init() throws ServletException{
 		this.listeEtudiants = new ArrayList<Etudiant>();
+		this.nbEquipes = 2;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("listeEtudiants", this.listeEtudiants);
+		request.setAttribute("nbEquipes", this.nbEquipes);
 		
 		String page;
 		
@@ -51,11 +55,20 @@ public class Etudiants extends HttpServlet {
 			FormulaireInsertionEtudiant formulaireInsertionEtudiant = new FormulaireInsertionEtudiant();
 			
 			this.listeEtudiants.add(formulaireInsertionEtudiant.verifierEtudiant(request));
+		} else if(request.getParameter("submitNbEquipes") != null) {
+			if(request.getParameter("nbEquipe") != "")
+			{
+				this.nbEquipes = Integer.parseInt(request.getParameter("nbEquipe"));
+		        request.setAttribute("nbEquipes", this.nbEquipes);
+			}
+			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);
+			return;			
 		} else {
 			Part part = request.getPart("fichier");
 			
 			String path = this.getServletContext().getRealPath("/WEB-INF/ressources");
 			EnregistreurFichier enregistreur = new EnregistreurFichier(part, path);
+			System.out.println(path + "\\" + enregistreur.getNomFichier());
 			if(!enregistreur.getNomFichier().isEmpty()) {
 				enregistreur.ecrireFichier();
 				LecteurCSV lecteurCsv = new LecteurCSV(path + "\\" + enregistreur.getNomFichier());
@@ -70,6 +83,6 @@ public class Etudiants extends HttpServlet {
 		}
 
 		request.setAttribute("listeEtudiants", this.listeEtudiants);
-		 this.getServletContext().getRequestDispatcher("/WEB-INF/etudiants.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/etudiants.jsp").forward(request, response);
 	}  
 }
