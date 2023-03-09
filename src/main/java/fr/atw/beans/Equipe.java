@@ -39,7 +39,7 @@ public class Equipe {
 	}
 	
 	public void ajouterEtudiant(Etudiant etudiant) {
-		if(!etudiants.contains(etudiant) && etudiant.getNumeroEquipe() != -1) {
+		if(!etudiants.contains(etudiant)) {
 			etudiants.add(etudiant);
 		}
 	}
