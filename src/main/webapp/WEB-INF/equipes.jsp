@@ -22,13 +22,15 @@
 		<p><c:out value="Nombre d'équipes : ${ nbEquipes }" /></p>
 		
 		<div>
-			<button type="button"> Générer les équipes aléatoires </button>
+			<form method="post" action="etudiants">
+				<input type="submit" name="submitEquipesAleatoire" value="Générer aléatoirement des équipes"/>
+			</form>			
 		</div>
 		<hr>
 		
 		<div class="etudiantSansEquipe">
 			<h3> Etudiants sans équipe : </h3>
-			<c:if test="${ ! listeEtudiants.isEmpty() }">
+			<c:if test="${ !listeEtudiants.isEmpty() }">
 				<c:forEach items="${ listeEtudiants }" var="i">
 					<c:if test="${ i.getNumeroEquipe() == -1 }">
 						<p> <c:out value="${ i.getPrenom() }" /> </p>
@@ -42,17 +44,18 @@
 		</div>
 		<hr>
 		
-		<c:forEach begin='0' end='1' step='1' var='j'>
-			<div clas="equipe_i">
-				<h4> Alexis Gadbin</h4>
-				<select name="etudiant" id="etudiant">
-				  <option value="volvo">Volvo</option>
-				  <option value="saab">Saab</option>
-				  <option value="opel">Opel</option>
-				  <option value="audi">Audi</option>
-				</select>
-			</div>
-		</c:forEach>
+		<div class="listeEquipes" style="display:flex; gap:50px"> 
+			<c:forEach begin='0' end='${ nbEquipes - 1}' var='i'>
+				<div>
+					<h2> <c:out value="Equipe ${ i + 1}" /> </h2>
+					<c:if test="${ listeEquipes.size() > i }">
+						<c:forEach items="${ listeEquipes.get(i).getEtudiants() }" var="etudiant">
+							<p> <c:out value="${ etudiant.getNom() }  ${ etudiant.getNumeroEquipe() }" /> </p>
+						</c:forEach>
+					</c:if>
+				</div>
+			</c:forEach>
+		</div>
 		<hr>
 		
 		<button type="button"> Exporter les équipes </button>
