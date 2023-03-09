@@ -11,16 +11,15 @@
 		<hr>
 		
 		<div class="gestionEquipe">
-			<form method="post" action="equipes">
+			<form method="post" action="etudiants">
 				<label for="nbEquipe"> Nombre d'équipes :</label>
-				<!--  <input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12">  -->
-				<input type="text" name="nbEquipe" id="nbEquipe" />
+				<input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12" value="${ nbEquipes }"> 
 				
 				<input type="submit" name="submitNbEquipes" value="submitNbEquipes"/>
 			</form>
 		</div>
 		
-		<p><c:out value="Nombre d'équipes : ${ nbEquipe }" /></p>
+		<p><c:out value="Nombre d'équipes : ${ nbEquipes }" /></p>
 		
 		<div>
 			<button type="button"> Générer les équipes aléatoires </button>
