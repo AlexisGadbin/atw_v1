@@ -48,12 +48,28 @@
 		<div class="listeEquipes" style="display:flex; gap:50px"> 
 			<c:forEach begin='0' end='${ nbEquipes - 1}' var='i'>
 				<div>
-					<h2> <c:out value="Equipe ${ i + 1}" /> </h2>
-					<c:if test="${ listeEquipes.size() > i }">
-						<c:forEach items="${ listeEquipes.get(i).getEtudiants() }" var="etudiant">
-							<p> <c:out value="${ etudiant.getNom() }  ${ etudiant.getNumeroEquipe() }" /> </p>
-						</c:forEach>
-					</c:if>
+					<form method="post" action="etudiants">
+						<input type="text" name="nomEquipe" id="nomEquipe" value="<c:out value="Equipe ${ i + 1}" />"> 
+						<c:if test="${ listeEquipes.size() > i }">
+							<c:forEach items="${ listeEquipes.get(i).getEtudiants() }" var="etudiant">
+								<p> 
+									<c:out value="${ etudiant.getNom() }  ${ etudiant.getNumeroEquipe() }" /> 
+									<input type="submit" name="supprimerEtudiant" value="X"/>
+								</p>
+							</c:forEach>
+						</c:if>
+						<br>
+						<select name="ajouterEtudiant" id="ajouterEtudiant">
+							<c:forEach items="${ listeEtudiants}" var="etudiantSansEquipe">
+								<c:if test="${ etudiantSansEquipe.getNumeroEquipe() == -1 }">
+									<option value="${ etudiantSansEquipe.getPrenom() }"> <c:out value="${ etudiantSansEquipe.getPrenom() }" /> 
+									<c:out value="${ etudiantSansEquipe.getNom().toUpperCase() }" />  </option>
+								</c:if>
+							</c:forEach>
+						</select>
+						<br>
+						<input type="submit" name="validerEquipe" value="Valider l'équipe"/>
+					</form>
 				</div>
 			</c:forEach>
 		</div>
