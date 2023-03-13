@@ -41,6 +41,7 @@ public class Equipe {
 	public void ajouterEtudiant(Etudiant etudiant) {
 		if(!etudiants.contains(etudiant)) {
 			etudiants.add(etudiant);
+			etudiant.setNumeroEquipe(this.numero);
 		}
 	}
 	
@@ -48,5 +49,23 @@ public class Equipe {
 		if(etudiants.contains(etudiant) && etudiant.getNumeroEquipe() == this.numero) {
 			etudiants.remove(etudiant);
 		}
+	}
+	
+	public void viderEquipe() {
+		for(Etudiant e : etudiants) {
+			e.setNumeroEquipe(-1);
+		}
+		this.etudiants.clear();
+	}
+	
+	@Override
+	public String toString() {
+		String string = "";
+		string += this.nom + "\n";
+		for(int i=0; i<this.etudiants.size(); i++) {
+			string += this.etudiants.get(i).toString() + "\n";
+		}
+		string += "--------------------";
+		return string;
 	}
 }

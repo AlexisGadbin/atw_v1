@@ -34,6 +34,18 @@ public class Etudiants extends HttpServlet {
 		request.setAttribute("nbEquipes", this.nbEquipes);
 		request.setAttribute("listeEquipes", this.listeEquipes);
 		
+		for(int i=0; i<this.nbEquipes; i++) {
+			if(this.listeEquipes.size() < i + 1) {
+				this.listeEquipes.add(new Equipe(i+1, "Equipe " + Integer.toString(i+1)));
+			}
+		}
+		
+		System.out.println("##############################");
+		
+		for(int i=0; i<this.listeEquipes.size(); i++) {
+			System.out.println(this.listeEquipes.get(i).toString());
+		}
+		
 		String page;
 		
         if (request.getParameterMap().containsKey("page")) {
@@ -69,16 +81,22 @@ public class Etudiants extends HttpServlet {
 		} else if(request.getParameter("submitNbEquipes") != null) {
 			if(request.getParameter("nbEquipe") != "")
 			{
-				//TODO Supprimer les étudiants des équipes enlever quand on baisse le nb d'équipes et supprimer les équipes
+				for(int i = this.nbEquipes; i<Integer.parseInt(request.getParameter("nbEquipe")); i++) {
+					this.listeEquipes.add(new Equipe(i+1, "Equipe "+Integer.toString(i+1)));
+				}
+				
+				for(int i = Integer.parseInt(request.getParameter("nbEquipe")); i<this.nbEquipes; i++) {
+					this.listeEquipes.get(this.listeEquipes.size()-1).viderEquipe();
+					this.listeEquipes.remove(this.listeEquipes.size()-1);
+				}
 				this.nbEquipes = Integer.parseInt(request.getParameter("nbEquipe"));
 		        request.setAttribute("nbEquipes", this.nbEquipes);
 			}
 			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);
 		} else if(request.getParameter("submitEquipesAleatoire") != null) {
 			if(this.listeEtudiants.size() >= this.nbEquipes) {
-				GenerateurEquipes generateurEquipes = new GenerateurEquipes(this.nbEquipes, this.listeEtudiants);
+				GenerateurEquipes generateurEquipes = new GenerateurEquipes(this.nbEquipes, this.listeEtudiants, this.listeEquipes);
 				generateurEquipes.genererEquipesAleatoire();
-				this.listeEquipes = generateurEquipes.getEquipes();
 			}
 			request.setAttribute("listeEquipes", this.listeEquipes);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);

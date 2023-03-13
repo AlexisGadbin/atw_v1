@@ -37,7 +37,6 @@ public class LecteurCSV {
 		String[] nextline;
 		try {
 			while((nextline = this.lecteurCsv.readNext()) != null) {
-				System.out.println(Arrays.toString(nextline));
 				output.add(Arrays.asList(nextline));
 			}
 		} catch (CsvValidationException e) {
