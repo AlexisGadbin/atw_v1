@@ -48,6 +48,7 @@ public class Equipe {
 	public void supprimerEtudiant(Etudiant etudiant) {
 		if(etudiants.contains(etudiant) && etudiant.getNumeroEquipe() == this.numero) {
 			etudiants.remove(etudiant);
+			etudiant.setNumeroEquipe(-1);
 		}
 	}
 	

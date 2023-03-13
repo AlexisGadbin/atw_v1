@@ -7,6 +7,7 @@ import java.util.List;
 import fr.atw.beans.Equipe;
 import fr.atw.beans.Etudiant;
 import fr.atw.formulaires.FormulaireInsertionEtudiant;
+import fr.atw.formulaires.FormulaireModificationEquipe;
 import fr.atw.outils.EnregistreurFichier;
 import fr.atw.outils.GenerateurEquipes;
 import fr.atw.outils.LecteurCSV;
@@ -100,7 +101,9 @@ public class Etudiants extends HttpServlet {
 			}
 			request.setAttribute("listeEquipes", this.listeEquipes);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);
-		} else {
+		} else if (request.getParameter("validerEquipe") != null) { 
+			FormulaireModificationEquipe formulaireModificationEquipe = new FormulaireModificationEquipe();
+		}else {
 			Part part = request.getPart("fichier");
 			
 			String path = this.getServletContext().getRealPath("/WEB-INF/ressources");
