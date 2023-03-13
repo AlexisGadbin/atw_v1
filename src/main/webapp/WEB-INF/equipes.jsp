@@ -12,7 +12,7 @@
 		
 		<div class="gestionEquipe">
 			<form method="post" action="etudiants">
-				<label for="nbEquipe"> Nombre d'équipes :</label>
+				<h3>Nombre d'équipes : </h3>
 				<input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12" value="${ nbEquipes }"> 
 				
 				<input type="submit" name="submitNbEquipes" value="Valider le nombre d'équipes"/>
@@ -55,7 +55,8 @@
 		<hr>
 		<br />
 		
-		<div class="listeEquipes" style="display:flex; gap:50px"> 
+		<h3>Equipes :</h3>
+		<div class="listeEquipes" style="display:flex; gap:50px; flex-wrap: wrap;"> 
 			<c:forEach begin='0' end='${ nbEquipes - 1}' var='i'>
 				<div>
 					<form method="post" action="etudiants">
@@ -96,6 +97,7 @@
 		<hr>
 		<br />
 		
+		<h3>Exporter les équipes : </h3>
 		<button type="button"> Exporter les équipes </button>
 		
 		
