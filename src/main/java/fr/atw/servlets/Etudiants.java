@@ -73,13 +73,15 @@ public class Etudiants extends HttpServlet {
 		request.setAttribute("listeEquipes", this.listeEquipes);
 		request.setAttribute("nbEquipes", this.nbEquipes);
 		
+		
 		if(request.getParameter("ajouterEtudiant") != null) {
 			FormulaireInsertionEtudiant formulaireInsertionEtudiant = new FormulaireInsertionEtudiant();
 			
-			this.listeEtudiants.add(formulaireInsertionEtudiant.verifierEtudiant(request));
+			this.listeEtudiants.add(formulaireInsertionEtudiant.verifierEtudiant(request, this.listeEtudiants.size()+1));
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/etudiants.jsp").forward(request, response);
 		} else if(request.getParameter("submitNbEquipes") != null) {
+			System.out.println("Changer nb equipe");
 			if(request.getParameter("nbEquipe") != "")
 			{
 				for(int i = this.nbEquipes; i<Integer.parseInt(request.getParameter("nbEquipe")); i++) {
@@ -101,8 +103,10 @@ public class Etudiants extends HttpServlet {
 			}
 			request.setAttribute("listeEquipes", this.listeEquipes);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);
-		} else if (request.getParameter("validerEquipe") != null) { 
+		} else if (request.getParameter("validerEquipe") != null || request.getParameter("supprimerEtudiant") != null) {
 			FormulaireModificationEquipe formulaireModificationEquipe = new FormulaireModificationEquipe();
+			formulaireModificationEquipe.modifierEquipe(this.listeEquipes, this.listeEtudiants, request);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/equipes.jsp").forward(request, response);
 		}else {
 			Part part = request.getPart("fichier");
 			
@@ -114,7 +118,7 @@ public class Etudiants extends HttpServlet {
 				List<List<String>> output = lecteurCsv.getOutput();
 				for(int i=0; i<output.size(); i++) {
 					if(output.get(i).size() == 5) {
-						this.listeEtudiants.add(new Etudiant(output.get(i).get(0), output.get(i).get(1), output.get(i).get(2), output.get(i).get(3), output.get(i).get(4)));
+						this.listeEtudiants.add(new Etudiant(this.listeEtudiants.size()+1, output.get(i).get(0), output.get(i).get(1), output.get(i).get(2), output.get(i).get(3), output.get(i).get(4)));
 					}
 				}
 			}
