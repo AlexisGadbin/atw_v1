@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class FormulaireInsertionEtudiant {
 	private Etudiant etudiant;
-	private String message;
 
 	public Etudiant verifierEtudiant(HttpServletRequest request) {
 		String nom = request.getParameter("nom");
