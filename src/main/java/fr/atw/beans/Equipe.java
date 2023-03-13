@@ -59,6 +59,15 @@ public class Equipe {
 		this.etudiants.clear();
 	}
 	
+	public Etudiant getEtudiant(int id) {
+		for(int i=0; i<this.etudiants.size(); i++) {
+			if(this.etudiants.get(i).getId() == id) {
+				return this.etudiants.get(i);
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		String string = "";
