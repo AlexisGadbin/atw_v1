@@ -13,8 +13,6 @@ public class FormulaireInsertionEtudiant {
 		String sitePrecedent = request.getParameter("sitePrecedent");
 		String formationPrecedente = request.getParameter("formationPrecedente");
 		
-		// TODO GERER EXCEPTION
-		
 		return etudiant = new Etudiant(id, nom, prenom, genre, sitePrecedent, formationPrecedente);
 	}
 	
