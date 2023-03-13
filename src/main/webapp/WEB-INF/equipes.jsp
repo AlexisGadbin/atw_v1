@@ -15,7 +15,7 @@
 				<label for="nbEquipe"> Nombre d'équipes :</label>
 				<input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12" value="${ nbEquipes }"> 
 				
-				<input type="submit" name="submitNbEquipes" value="submitNbEquipes"/>
+				<input type="submit" name="submitNbEquipes" value="Valider le nombre d'équipes"/>
 			</form>
 		</div>
 		
@@ -31,15 +31,16 @@
 		<div class="etudiantSansEquipe">
 			<h3> Etudiants sans équipe : </h3>
 			<c:if test="${ !listeEtudiants.isEmpty() }">
-				<c:forEach items="${ listeEtudiants }" var="i">
-					<c:if test="${ i.getNumeroEquipe() == -1 }">
-						<p> <c:out value="${ i.getPrenom() }" /> </p>
-						<p> <c:out value="${ i.getNom() }" /> </p>
-						<p> <c:out value="${ i.getGenre() }" /> </p>
-						<p> <c:out value="${ i.getSitePrecedent() }" /> </p>
-						<p> <c:out value="${ i.getFormationPrecedente() }" /> </p>
-					</c:if> 
-				</c:forEach>
+				<ul>
+					<c:forEach items="${ listeEtudiants }" var="i">
+						<c:if test="${ i.getNumeroEquipe() == -1 }">
+							<li>
+								<p> <c:out value="${ i.getPrenom() }" /> 
+									<c:out value="${ i.getNom().toUpperCase() }" /> </p>
+							</li>
+						</c:if> 
+					</c:forEach>
+				</ul>
 			</c:if>
 		</div>
 		<hr>

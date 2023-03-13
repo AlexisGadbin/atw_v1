@@ -61,6 +61,11 @@ public class Etudiant {
 		this.numeroEquipe = numeroEquipe;
 	}
 	
+	@Override
+	public String toString() {
+		return this.nom.toUpperCase() + " " + this.prenom + " Equipe " + this.numeroEquipe;
+	}
+	
 	
 	
 }

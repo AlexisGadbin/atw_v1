@@ -12,10 +12,10 @@ public class GenerateurEquipes {
 	private List<Etudiant> etudiants;
 	private List<Equipe> equipes;
 	
-	public GenerateurEquipes(int nbEquipes, List<Etudiant> etudiants) {
+	public GenerateurEquipes(int nbEquipes, List<Etudiant> etudiants, List<Equipe> equipes) {
 		this.nbEquipes = nbEquipes;
 		this.etudiants = etudiants;
-		this.equipes = new ArrayList<Equipe>();
+		this.equipes = equipes;
 	}
 
 	public List<Equipe> getEquipes() {
@@ -37,9 +37,12 @@ public class GenerateurEquipes {
 		
 		ArrayList<Integer> random = new ArrayList<Integer>();
 		
+		for(int i=0; i < this.equipes.size(); i++) {
+			this.equipes.get(i).viderEquipe();;
+		}
+		
 		for(int i=0; i < this.nbEquipes; i++)
 		{
-			Equipe equipe = new Equipe(i+1, "Equipe "+i+1);
 			for(int j=0; j < nbEtudiantsEquipe; j++)
 			{
 				Random r = new Random();
@@ -51,10 +54,8 @@ public class GenerateurEquipes {
 				random.add(randomInt);
 				
 				Etudiant etudiant = this.etudiants.get(randomInt);
-				equipe.ajouterEtudiant(etudiant);
-				etudiant.setNumeroEquipe(i+1);
+				this.equipes.get(i).ajouterEtudiant(etudiant);
 			}
-			this.equipes.add(equipe);
 		}
 		
 		for(int i=0; i < nbEtudiantsRestant; i++) {
