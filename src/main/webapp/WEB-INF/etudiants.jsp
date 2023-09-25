@@ -8,6 +8,7 @@
 	<body>
 		<%@ include file="menu.jsp" %>
 		<h1> Page Etudiants </h1>
+		<br />
 		
 		<form method="POST" action="etudiants">
 			<input type="text" id="nom" name="nom" placeholder="Nom"/>
@@ -23,36 +24,36 @@
 				<option value="Angers"> Angers </option>
 				<option value="Paris"> Paris </option>
 				<option value="Dijon"> Dijon </option>
+				<option value="Autre"> Autre </option>
 			</select>
-			<br />
 			
 			<select id="formationPrecedente" name="formationPrecedente">
-				<option value="Ingénieur"> Ingénieur </option>
+				<option value="E3e"> E3e </option>
+				<option value="E4e"> E4e </option>
 				<option value="Bachelor"> Bachelor </option>
+				<option value="Apprenti"> Apprenti </option>
+				<option value="Autre"> Autre </option>
 			</select>
+			<br />
 			<br />
 			
 			<input type="submit" name="ajouterEtudiant" value="Ajouter etudiant"/>
 		</form>
 		
+		<br />
 		<hr />
+		<br />
 		
 		<form method="POST" action="etudiants" enctype="multipart/form-data">
 	        <input type="file" name="fichier" id="fichier" />
+	        
+	        <br />
+	        <br />
 			<input type="submit" name="ajouterCsv" value="Ajouter liste etudiant">
 		</form>
 		
-		<hr /> 
-		
-		<c:if test="${ listeEtudiants.size() > 0 }">
-			<c:forEach items="${ listeEtudiants }" var="i">
-				<p><c:out value="${i.getNom()}" /> </p>
-				<p><c:out value="${i.getPrenom()}" /> </p>
-				<p><c:out value="${i.getGenre()}" /> </p>
-				<p><c:out value="${i.getSitePrecedent()}" /> </p>
-				<p><c:out value="${i.getFormationPrecedente()}" /> </p>
-				<hr />
-			</c:forEach>
-		</c:if>
+		<br />
+		<hr />
+		<br /> 
 	</body>
 </html>

@@ -1,6 +1,7 @@
 package fr.atw.beans;
 
 public class Etudiant {
+	private int id;
 	private String nom;
 	private String prenom;
 	private String genre;
@@ -9,7 +10,16 @@ public class Etudiant {
 	private int numeroEquipe;
 	
 	
-	public Etudiant(String nom, String prenom, String genre, String sitePrecedent, String formationPrecedente) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Etudiant(int id, String nom, String prenom, String genre, String sitePrecedent, String formationPrecedente) {
+		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.genre = genre;
@@ -59,6 +69,11 @@ public class Etudiant {
 
 	public void setNumeroEquipe(int numeroEquipe) {
 		this.numeroEquipe = numeroEquipe;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nom.toUpperCase() + " " + this.prenom + " Equipe " + this.numeroEquipe;
 	}
 	
 	

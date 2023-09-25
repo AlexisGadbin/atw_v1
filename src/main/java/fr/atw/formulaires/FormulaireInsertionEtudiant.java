@@ -5,18 +5,15 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class FormulaireInsertionEtudiant {
 	private Etudiant etudiant;
-	private String message;
 
-	public Etudiant verifierEtudiant(HttpServletRequest request) {
+	public Etudiant verifierEtudiant(HttpServletRequest request, int id) {
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
 		String genre = request.getParameter("genre");
 		String sitePrecedent = request.getParameter("sitePrecedent");
 		String formationPrecedente = request.getParameter("formationPrecedente");
 		
-		// TODO GERER EXCEPTION
-		
-		return etudiant = new Etudiant(nom, prenom, genre, sitePrecedent, formationPrecedente);
+		return etudiant = new Etudiant(id, nom, prenom, genre, sitePrecedent, formationPrecedente);
 	}
 	
 	public Etudiant getEtudiant() {

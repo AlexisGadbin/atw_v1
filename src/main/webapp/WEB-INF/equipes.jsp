@@ -8,54 +8,96 @@
 	<body>
 		<%@ include file="menu.jsp" %>
 		<h1> Page équipes </h1>
-		<hr>
+		<br />
 		
 		<div class="gestionEquipe">
-			<form method="post" action="equipes">
-				<label for="nbEquipe"> Nombre d'équipes :</label>
-				<!--  <input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12">  -->
-				<input type="text" name="nbEquipe" id="nbEquipe" />
+			<form method="post" action="etudiants">
+				<h3>Nombre d'équipes : </h3>
+				<input type="number" id="nbEquipe" name="nbEquipe" min="1" max="12" value="${ nbEquipes }"> 
 				
-				<input type="submit" name="submitNbEquipes" value="submitNbEquipes"/>
+				<input type="submit" name="submitNbEquipes" value="Valider le nombre d'équipes"/>
 			</form>
 		</div>
-		
-		<p><c:out value="Nombre d'équipes : ${ nbEquipe }" /></p>
-		
+		<br />
 		<div>
-			<button type="button"> Générer les équipes aléatoires </button>
+			<form method="post" action="etudiants">
+				<input type="submit" name="submitEquipesAleatoire" value="Générer aléatoirement des équipes"/>
+			</form>			
 		</div>
+		
+		<br />
 		<hr>
+		<br />
 		
 		<div class="etudiantSansEquipe">
 			<h3> Etudiants sans équipe : </h3>
-			<c:if test="${ ! listeEtudiants.isEmpty() }">
-				<c:forEach items="${ listeEtudiants }" var="i">
-					<c:if test="${ i.getNumeroEquipe() == -1 }">
-						<p> <c:out value="${ i.getPrenom() }" /> </p>
-						<p> <c:out value="${ i.getNom() }" /> </p>
-						<p> <c:out value="${ i.getGenre() }" /> </p>
-						<p> <c:out value="${ i.getSitePrecedent() }" /> </p>
-						<p> <c:out value="${ i.getFormationPrecedente() }" /> </p>
-					</c:if> 
-				</c:forEach>
+			<c:if test="${ !listeEtudiants.isEmpty() }">
+				<ul>
+					<c:forEach items="${ listeEtudiants }" var="i">
+						<c:if test="${ i.getNumeroEquipe() == -1 }">
+							<li>
+								<p> 
+									<c:out value="${ i.getPrenom() }" /> 
+									<c:out value="${ i.getNom().toUpperCase() }" /> 
+									<c:out value="(${ i.getGenre() })" />
+									 - 
+									<c:out value="${ i.getFormationPrecedente() }" />
+									<c:out value="${ i.getSitePrecedent() }" />
+								</p>
+							</li>
+						</c:if> 
+					</c:forEach>
+				</ul>
 			</c:if>
 		</div>
-		<hr>
 		
-		<c:forEach begin='0' end='1' step='1' var='j'>
-			<div clas="equipe_i">
-				<h4> Alexis Gadbin</h4>
-				<select name="etudiant" id="etudiant">
-				  <option value="volvo">Volvo</option>
-				  <option value="saab">Saab</option>
-				  <option value="opel">Opel</option>
-				  <option value="audi">Audi</option>
-				</select>
-			</div>
-		</c:forEach>
+		<br />
 		<hr>
+		<br />
 		
+		<h3>Equipes :</h3>
+		<div class="listeEquipes" style="display:flex; gap:50px; flex-wrap: wrap;"> 
+			<c:forEach begin='0' end='${ nbEquipes - 1}' var='i'>
+				<div>
+					<form method="post" action="etudiants">
+						<input name="numeroEquipe" value="${ listeEquipes.get(i).getNumero() }" hidden />
+						<input style="font-weight:bold;" type="text" name="nomEquipe" id="nomEquipe" value="<c:out value="${ listeEquipes.get(i).getNom() }" />"> 
+
+						<c:if test="${ listeEquipes.size() > i }">
+							<c:forEach items="${ listeEquipes.get(i).getEtudiants() }" var="etudiant">
+								<p> 
+									<c:out value="${ etudiant.getNom().toUpperCase() }  ${ etudiant.getPrenom() }" /> 
+									<button type="submit" name="supprimerEtudiant" value="${etudiant.getId()}">X</button>
+								</p>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ listeEquipes.get(i).getEtudiants().size() < 1 }">
+							<br>
+							<br>
+						</c:if>
+						<select name="ajouterEtudiantEquipe" id="ajouterEtudiantEquipe">
+							<option value="null">--Selectionner un étudiant--</option>
+							<c:forEach items="${ listeEtudiants}" var="etudiantSansEquipe">
+								<c:if test="${ etudiantSansEquipe.getNumeroEquipe() == -1 }">
+									<option value="${ etudiantSansEquipe.getId() }"> 
+										<c:out value="${ etudiantSansEquipe.getPrenom() } ${ etudiantSansEquipe.getNom().toUpperCase() }" /> 
+									</option>
+								</c:if>
+							</c:forEach>
+						</select>
+						<br>
+						<br>
+						<input type="submit" name="validerEquipe" value="Valider l'équipe"/>
+					</form>
+				</div>
+			</c:forEach>
+		</div>
+		
+		<br />
+		<hr>
+		<br />
+		
+		<h3>Exporter les équipes : </h3>
 		<button type="button"> Exporter les équipes </button>
 		
 		
